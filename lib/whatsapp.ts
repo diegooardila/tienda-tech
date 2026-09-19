@@ -25,21 +25,22 @@ export function buildOrderMessage(
     .join("\n");
 
   const lines = [
-    "🧾 *NUEVO PEDIDO - NOVA TEC*",
+    " *NUEVO PEDIDO - NOVA TEC*",
     "------------------------------",
-    `👤 Nombre y apellidos: ${data.nombreCompleto}`,
-    `🏙️ Ciudad de destino: ${data.ciudad}`,
-    `🏘️ Barrio: ${data.barrio}`,
-    `📍 Dirección completa: ${data.direccion}`,
-    `📝 Observaciones del lugar: ${data.observaciones || "Ninguna"}`,
-    `📱 Celular: ${data.celular}`,
-    `✉️ Correo electrónico: ${data.correo}`,
+    ` Nombre y apellidos: ${data.nombreCompleto}`,
+    ` Ciudad de destino: ${data.ciudad}`,
+    ` Barrio: ${data.barrio}`,
+    ` Dirección completa: ${data.direccion}`,
+    ` Observaciones del lugar: ${data.observaciones || "Ninguna"}`,
+    ` Celular: ${data.celular}`,
+    ` Correo electrónico: ${data.correo}`,
     "------------------------------",
-    "🛒 *Productos:*",
+    " *Productos:*",
     productLines,
     "------------------------------",
-    `💰 *Total a pagar: ${formatCOP(total)}*`,
-    `💳 Método de pago: ${data.metodoPago}`,
+    ` *Total a pagar: ${formatCOP(total)}*`,
+    
+    ` Método de pago: ${data.metodoPago}`,
     "------------------------------",
     "📎 Por favor enviar el soporte de la transferencia.",
   ];

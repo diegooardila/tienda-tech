@@ -68,7 +68,7 @@ export default function CartDrawer() {
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-sm font-bold text-slate-900">
+                        <p className="truncate text-sm font-bold uppercase tracking-[0.04em] text-slate-900">
                           {item.product.name}
                         </p>
                         <p className="font-mono text-xs font-semibold text-cyan-700">

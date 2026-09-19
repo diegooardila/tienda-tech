@@ -16,6 +16,12 @@ const emptyData: CheckoutData = {
   metodoPago: "Nequi",
 };
 
+const COD_CITIES = ["soledad", "malambo", "galapa", "barranquilla"] as const;
+
+function supportsCashOnDelivery(city: string) {
+  return COD_CITIES.some((allowedCity) => city.trim().toLowerCase() === allowedCity);
+}
+
 type FieldErrors = Partial<Record<keyof CheckoutData, string>>;
 
 export default function CheckoutForm({ onClose }: { onClose: () => void }) {
@@ -25,6 +31,19 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
   const [submitted, setSubmitted] = useState(false);
 
   function update<K extends keyof CheckoutData>(key: K, value: CheckoutData[K]) {
+    if (key === "ciudad") {
+      const nextCity = String(value);
+      setData((prev) => ({
+        ...prev,
+        ciudad: nextCity,
+        metodoPago:
+          prev.metodoPago === "Contraentrega" && !supportsCashOnDelivery(nextCity)
+            ? "Nequi"
+            : prev.metodoPago,
+      }));
+      return;
+    }
+
     setData((prev) => ({ ...prev, [key]: value }));
   }
 
@@ -77,9 +96,9 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
       aria-modal="true"
       aria-label="Datos de entrega y pago"
     >
-      <div className="animate-pop-in max-h-[92vh] w-full max-w-lg overflow-y-auto rounded-t-2xl border border-cyan-500/30 bg-surface sm:rounded-2xl shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/10 p-4">
-          <h2 className="font-display text-lg font-bold text-white">
+      <div className="animate-pop-in max-h-[92vh] w-full max-w-[min(92vw,32rem)] overflow-y-auto rounded-t-2xl border border-cyan-500/30 bg-surface sm:rounded-2xl shadow-2xl">
+        <div className="flex items-center justify-between border-b border-white/10 p-3 sm:p-4">
+          <h2 className="font-display text-sm font-bold text-white sm:text-lg">
             {submitted ? "Pedido enviado" : "Datos de entrega y pago · NOVA TEC"}
           </h2>
           <button
@@ -115,7 +134,7 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
             </button>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-5">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3 p-3 sm:gap-4 sm:p-5">
             <Field
               label="Nombre y apellidos"
               error={errors.nombreCompleto}
@@ -220,10 +239,15 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
             </div>
 
             <div>
-              <p className="mb-2 text-sm font-bold text-white">
+              <p className="mb-2 text-xs font-bold text-white sm:text-sm">
                 Selección del Método de pago
               </p>
-              <div className="grid grid-cols-2 gap-3">
+
+              <div className="mb-2 rounded-xl border border-cyan-500/20 bg-cyan-500/5 px-3 py-2 text-[10px] text-slate-700 sm:text-xs">
+                El costo del envío varía según la ciudad. En <span className="font-bold text-cyan-700">Soledad, Malambo, Galapa y Barranquilla</span> también puedes pagar <span className="font-bold text-slate-900">contraentrega</span>.
+              </div>
+
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 sm:gap-3">
                 <PaymentOption
                   label="Nequi (3012734903)"
                   value="Nequi"
@@ -236,24 +260,31 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
                   selected={data.metodoPago}
                   onSelect={(v) => update("metodoPago", v)}
                 />
+                <PaymentOption
+                  label="Contraentrega"
+                  value="Contraentrega"
+                  selected={data.metodoPago}
+                  onSelect={(v) => update("metodoPago", v)}
+                  disabled={!supportsCashOnDelivery(data.ciudad)}
+                />
               </div>
             </div>
 
-            <div className="mt-1 flex items-center justify-between rounded-xl border border-white/10 bg-slate-900 px-4 py-3">
-              <span className="text-sm text-slate-400 font-semibold">Total del pedido</span>
-              <span className="font-mono text-lg font-extrabold text-white">
+            <div className="mt-1 flex items-center justify-between rounded-xl border border-white/10 bg-slate-900 px-3 py-2.5 sm:px-4 sm:py-3">
+              <span className="text-xs font-semibold text-slate-400 sm:text-sm">Total del pedido</span>
+              <span className="font-mono text-base font-extrabold text-white sm:text-lg">
                 {formatCOP(totalPrice)}
               </span>
             </div>
 
-            <div className="rounded-xl border border-amber-500/30 bg-amber-500/10 p-3.5 text-xs font-semibold text-amber-300 flex items-start gap-2">
+            <div className="flex items-start gap-2 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-[11px] font-semibold text-amber-300 sm:text-xs">
               <span>⚠️</span>
               <span><strong>RECUERDA:</strong> Al confirmar serás redirigido a WhatsApp (+57 3012734903). <strong>Por favor envía el soporte de la transferencia por el chat.</strong></span>
             </div>
 
             <button
               type="submit"
-              className="mt-1 w-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 py-3.5 text-center font-display text-sm font-extrabold text-slate-950 transition hover:brightness-110 shadow-lg"
+              className="mt-1 w-full rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 py-3 text-center font-display text-xs font-extrabold text-slate-950 transition hover:brightness-110 shadow-lg sm:py-3.5 sm:text-sm"
             >
               Confirmar y Enviar Pedido por WhatsApp
             </button>
@@ -265,7 +296,7 @@ export default function CheckoutForm({ onClose }: { onClose: () => void }) {
 }
 
 function inputClass(hasError: boolean) {
-  return `w-full rounded-lg border bg-slate-950 px-3 py-2.5 text-sm text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 ${
+  return `w-full rounded-lg border bg-slate-950 px-3 py-2 text-xs text-white placeholder:text-slate-500 outline-none transition focus:border-cyan-400 sm:py-2.5 sm:text-sm ${
     hasError ? "border-red-500" : "border-white/10"
   }`;
 }
@@ -280,12 +311,12 @@ function Field({
   error?: string;
 }) {
   return (
-    <label className="flex flex-col gap-1.5 text-sm">
+    <label className="flex flex-col gap-1 text-[11px] sm:gap-1.5 sm:text-sm">
       <span className="font-semibold text-white">
         {label} <span className="text-cyan-400">*</span>
       </span>
       {input}
-      {error && <span className="text-xs text-red-400 font-bold">{error}</span>}
+      {error && <span className="text-[10px] text-red-400 font-bold sm:text-xs">{error}</span>}
     </label>
   );
 }
@@ -295,26 +326,35 @@ function PaymentOption({
   value,
   selected,
   onSelect,
+  disabled = false,
 }: {
   label: string;
   value: PaymentMethod;
   selected: PaymentMethod;
   onSelect: (value: PaymentMethod) => void;
+  disabled?: boolean;
 }) {
   const isActive = selected === value;
   return (
     <button
       type="button"
       onClick={() => onSelect(value)}
-      className={`flex items-center justify-center gap-2 rounded-xl border px-3.5 py-3 text-xs font-bold transition ${
-        isActive
-          ? "border-cyan-400 bg-cyan-500/15 text-cyan-400 shadow-sm"
-          : "border-white/10 text-slate-400 hover:border-cyan-500/30"
+      disabled={disabled}
+      className={`flex items-center justify-center gap-2 rounded-xl border px-2.5 py-2.5 text-[10px] font-bold transition sm:px-3.5 sm:py-3 sm:text-xs ${
+        disabled
+          ? "cursor-not-allowed border-slate-200 bg-slate-100 text-slate-400 opacity-60"
+          : isActive
+            ? "border-cyan-500 bg-cyan-100 text-cyan-700 shadow-sm ring-1 ring-cyan-200"
+            : "border-slate-200 bg-white text-slate-700 hover:border-cyan-400 hover:text-cyan-700"
       }`}
     >
       <span
         className={`h-2.5 w-2.5 rounded-full ${
-          isActive ? "bg-cyan-400 shadow-glow" : "bg-white/20"
+          disabled
+            ? "bg-slate-400"
+            : isActive
+              ? "bg-cyan-600 shadow-[0_0_0_4px_rgba(14,165,233,0.18)]"
+              : "bg-slate-300"
         }`}
       />
       {label}

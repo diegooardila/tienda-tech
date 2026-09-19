@@ -25,13 +25,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-30 border-b border-white/10 bg-ink/90 backdrop-blur-md">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-        <a href="#inicio" className="flex items-center gap-2.5">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 via-blue-600 to-amber-500 font-display text-base font-extrabold text-white shadow-glow">
-            N
-          </span>
-          <span className="font-display text-xl font-extrabold tracking-wider text-white">
-            NOVA <span className="text-cyan-400">TEC</span>
-          </span>
+        <a href="#inicio" className="flex items-center">
+          <img src="/images/nova-tech-logo.svg" alt="NOVA TECH" className="h-12 w-auto" />
         </a>
 
         <nav className="hidden items-center gap-8 text-sm font-semibold text-muted md:flex">

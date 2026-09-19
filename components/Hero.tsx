@@ -1,4 +1,11 @@
+import type { ReactNode } from "react";
+import { products } from "@/lib/products";
+import { formatCOP } from "@/lib/whatsapp";
 import TechBanner from "./TechBanner";
+
+const airpodsPrice = products.find((product) => product.id === "airpods-pro-3")?.price ?? 0;
+const smartwatchPrice = products.find((product) => product.id === "smartwatch-ultra-titanium")?.price ?? 0;
+const exampleOrderTotal = airpodsPrice + smartwatchPrice;
 
 export default function Hero() {
   return (
@@ -11,6 +18,11 @@ export default function Hero() {
 
       <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 pb-16 pt-12 md:grid-cols-2 md:pb-24 md:pt-16">
         <div>
+          <img
+            src="/images/nova-tech-logo.svg"
+            alt="NOVA TECH - Tecnología que se mueve contigo"
+            className="mb-7 h-auto w-full max-w-md"
+          />
           <span className="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-surface px-4 py-1.5 font-mono text-xs font-bold text-cyan-400 shadow-glow">
             <span className="h-2 w-2 rounded-full bg-emerald-400 animate-ping" />
             NOVA TEC · AirPods & Smartwatches 2026
@@ -58,13 +70,13 @@ export default function Hero() {
             </div>
             <div className="flex flex-col gap-3 bg-[#0b141a] px-3 py-4">
               <ChatBubble align="right">
-                Hola NOVA TEC! Quiero los AirPods Pro (2ª Gen) y el Smartwatch Ultra 🙌
+                Hola NOVA TEC! Quiero los AIRPODS PRO 3 y el Smartwatch Ultra 🙌
               </ChatBubble>
               <ChatBubble align="left">
                 ¡Excelente elección! ⚡ Resumen de tu pedido:
-                {"\n"}1. AirPods Pro (2ª Gen) ANC x1
-                {"\n"}2. Smartwatch Ultra Titanium x1
-                {"\n"}Total: $1.038.000 COP
+                {"\n"}1. AIRPODS PRO 3 x1 - {formatCOP(airpodsPrice)}
+                {"\n"}2. Smartwatch Ultra Titanium x1 - {formatCOP(smartwatchPrice)}
+                {"\n"}Total: {formatCOP(exampleOrderTotal)}
               </ChatBubble>
               <ChatBubble align="right">
                 Listo! Ya transferí por Nequi, adjunto soporte 📎
@@ -84,13 +96,13 @@ function ChatBubble({
   children,
   align,
 }: {
-  children: string;
+  children: ReactNode;
   align: "left" | "right";
 }) {
   const isRight = align === "right";
   return (
     <div
-      className={`max-w-[85%] whitespace-pre-line rounded-lg px-3.5 py-2.5 text-[13px] leading-snug text-white ${
+      className={`chat-bubble max-w-[85%] whitespace-pre-line rounded-lg px-3.5 py-2.5 text-[13px] leading-snug text-white ${
         isRight ? "self-end bg-[#005C4B]" : "self-start bg-[#202c33]"
       }`}
     >

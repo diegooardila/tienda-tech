@@ -18,13 +18,13 @@ export default function ProductGrid() {
       : products.filter((p) => p.category.toLowerCase() === activeCategory.toLowerCase());
 
   return (
-    <section id="catalogo" className="mx-auto max-w-6xl px-5 py-14">
-      <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <section id="catalogo" className="mx-auto max-w-6xl px-3 py-10 sm:px-5 sm:py-14">
+      <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="font-mono text-xs uppercase font-extrabold tracking-wider text-cyan-400">
+          <p className="font-mono text-[10px] uppercase font-extrabold tracking-wider text-cyan-400 sm:text-xs">
             Catálogo Exclusivo
           </p>
-          <h2 className="font-display text-2xl font-extrabold text-white sm:text-3xl">
+          <h2 className="font-display text-xl font-extrabold text-white sm:text-2xl sm:text-3xl">
             AirPods & Smartwatches
           </h2>
         </div>
@@ -34,7 +34,7 @@ export default function ProductGrid() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`rounded-full border px-5 py-2 text-xs font-extrabold transition duration-200 ${
+              className={`rounded-full border px-3 py-2 text-[10px] font-extrabold transition duration-200 sm:px-5 sm:text-xs ${
                 activeCategory.toLowerCase() === cat.toLowerCase()
                   ? "border-cyan-400 bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/25 scale-105"
                   : "border-white/10 bg-surface text-slate-400 hover:border-cyan-500/40 hover:text-white"
@@ -46,7 +46,7 @@ export default function ProductGrid() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
         {filtered.map((product) => (
           <ProductCard
             key={product.id}

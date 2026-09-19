@@ -15,9 +15,11 @@ export default function ProductModal({
 }) {
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
 
   useEffect(() => {
     setQuantity(1);
+    setIsZoomOpen(false);
   }, [product]);
 
   useEffect(() => {
@@ -64,29 +66,89 @@ export default function ProductModal({
         <div className="grid gap-5 p-5 sm:grid-cols-2">
           {/* Image & Tagline Column */}
           <div className="flex flex-col gap-2">
-            <div className="relative aspect-square overflow-hidden rounded-xl bg-surface2 border border-white/10 shadow-md">
+            <button
+              type="button"
+              onClick={() => setIsZoomOpen(true)}
+              className="group relative aspect-square w-full overflow-hidden rounded-xl border border-white/10 bg-surface2 text-left shadow-md"
+              aria-label={`Ampliar imagen de ${product.name}`}
+            >
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
                 sizes="(max-width: 640px) 90vw, 40vw"
-                className="object-cover"
+                className="object-cover transition duration-300 group-hover:scale-105"
               />
+              <span className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-slate-950/80 text-white shadow-lg transition group-hover:bg-cyan-500" aria-hidden="true">
+                <ZoomIcon />
+              </span>
               {product.badge && (
                 <span className="absolute left-3 top-3 rounded-full bg-emerald-500 px-3 py-1 font-mono text-xs font-extrabold text-slate-950 shadow-md">
                   {product.badge}
                 </span>
               )}
-            </div>
+            </button>
 
             {/* Tagline message glued right under the amplified image */}
             <div className="rounded-lg border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-2 text-center font-mono text-xs font-bold text-cyan-400 shadow-sm">
               ⚡ {product.tagline}
             </div>
+
+            {(product.id === "airpods-pro-3" || product.id === "airpods-4" || product.id === "airpods-pro-sealed" || product.id === "smartwatch-ultra-titanium") && (
+              <div className="mt-3 overflow-hidden rounded-xl border border-cyan-500/25 bg-slate-950 shadow-md">
+                <div className="border-b border-white/10 px-3.5 py-3">
+                  <p className="font-mono text-[11px] font-extrabold uppercase tracking-wider text-cyan-400">
+                    Unboxing y características
+                  </p>
+                  <p className="mt-1 text-xs leading-relaxed text-slate-300">
+                    {product.id === "smartwatch-ultra-titanium"
+                      ? "Conoce el diseño, la pantalla y los detalles del Smartwatch Ultra antes de comprar."
+                      : product.id === "airpods-pro-sealed"
+                        ? "Conoce el empaque, los detalles y el audio de los AirPods Pro ANC Premium antes de comprar."
+                        : `Conoce el empaque, el estuche y los accesorios de ${product.name} antes de comprar.`}
+                  </p>
+                </div>
+                <div className="flex items-center justify-center bg-slate-950">
+                  <video
+                    className="aspect-video w-full max-w-[100%] bg-slate-900 object-cover"
+                    controls
+                    muted
+                    autoPlay
+                    loop
+                    playsInline
+                    controlsList="nofullscreen nodownload noplaybackrate"
+                    disablePictureInPicture
+                    preload="metadata"
+                    poster={product.image}
+                    aria-label={`Video de unboxing de ${product.name}`}
+                  >
+                  <source
+                    src={
+                      product.id === "airpods-pro-3"
+                        ? "/videos/unboxing-airpods-pro-3.mp4"
+                        : product.id === "airpods-4"
+                          ? "/videos/unboxing-airpods4.mp4"
+                          : product.id === "airpods-pro-sealed"
+                            ? "/videos/AIRPODS ANC.mp4"
+                            : "/videos/watches-h9.mp4"
+                    }
+                    type="video/mp4"
+                  />
+                    Tu navegador no puede reproducir este video.
+                  </video>
+                </div>
+                <div className="grid grid-cols-3 gap-2 border-t border-white/10 px-3 py-3 text-center text-[10px] font-semibold text-slate-300">
+                  <span>{product.id === "smartwatch-ultra-titanium" ? "Diseño" : "Empaque"}</span>
+                  <span>{product.id === "smartwatch-ultra-titanium" ? "Pantalla" : "Estuche"}</span>
+                  <span>{product.id === "smartwatch-ultra-titanium" ? "Detalles" : "Accesorios"}</span>
+                </div>
+              </div>
+            )}
+
           </div>
 
           <div className="flex flex-col">
-            <h2 className="font-display text-2xl font-bold text-white">{product.name}</h2>
+            <h2 className="font-display text-2xl font-bold uppercase tracking-[0.04em] text-white">{product.name}</h2>
             <p className="mt-2 text-sm leading-relaxed text-slate-300">
               {product.description}
             </p>
@@ -114,21 +176,21 @@ export default function ProductModal({
                 {formatCOP(product.price)}
               </span>
 
-              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-slate-900 px-2 py-1">
+              <div className="quantity-control flex items-center gap-2 rounded-full border border-white/10 bg-slate-900 px-2 py-1">
                 <button
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   aria-label="Disminuir cantidad"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-white hover:bg-white/10"
+                  className="quantity-control-button flex h-7 w-7 items-center justify-center rounded-full text-white hover:bg-white/10"
                 >
                   −
                 </button>
-                <span className="w-6 text-center font-mono text-sm font-bold text-white">
+                <span className="quantity-control-value w-6 text-center font-mono text-sm font-bold text-white">
                   {quantity}
                 </span>
                 <button
                   onClick={() => setQuantity((q) => q + 1)}
                   aria-label="Aumentar cantidad"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-white hover:bg-white/10"
+                  className="quantity-control-button flex h-7 w-7 items-center justify-center rounded-full text-white hover:bg-white/10"
                 >
                   +
                 </button>
@@ -147,6 +209,43 @@ export default function ProductModal({
           </div>
         </div>
       </div>
+
+      {isZoomOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-5 backdrop-blur-sm"
+          onClick={() => setIsZoomOpen(false)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`Imagen ampliada de ${product.name}`}
+        >
+          <button
+            type="button"
+            onClick={() => setIsZoomOpen(false)}
+            className="absolute right-5 top-5 rounded-full bg-white/10 px-3 py-2 text-xl text-white transition hover:bg-white/20"
+            aria-label="Cerrar imagen ampliada"
+          >
+            ✕
+          </button>
+          <div className="relative h-[min(82vh,760px)] w-[min(92vw,900px)]" onClick={(event) => event.stopPropagation()}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              sizes="92vw"
+              className="object-contain"
+            />
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function ZoomIcon() {
+  return (
+    <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-4-4M11 8v6M8 11h6" />
+    </svg>
   );
 }

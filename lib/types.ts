@@ -20,7 +20,7 @@ export type CartItem = {
   quantity: number;
 };
 
-export type PaymentMethod = "Nequi" | "Bre-B";
+export type PaymentMethod = "Nequi" | "Bre-B" | "Contraentrega";
 
 export type CheckoutData = {
   nombreCompleto: string;

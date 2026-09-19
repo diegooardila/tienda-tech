@@ -1,0 +1,30 @@
+<svg width="720" height="420" viewBox="0 0 720 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="green" x1="150" y1="60" x2="580" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A8FFB8"/>
+      <stop offset="0.45" stop-color="#27E86B"/>
+      <stop offset="1" stop-color="#00A84F"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="230" y1="80" x2="430" y2="300" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#9AA3AD"/>
+    </linearGradient>
+    <linearGradient id="nova-gray" x1="52" y1="300" x2="300" y2="365" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#64748B"/>
+      <stop offset="1" stop-color="#334155"/>
+    </linearGradient>
+  </defs>
+  <path d="M135 245C85 205 122 151 214 133C346 107 535 119 599 171C643 207 600 252 535 274C439 306 246 317 151 280" stroke="url(#green)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M244 92H508L460 143H196L244 92Z" fill="url(#green)"/>
+  <path d="M191 112C167 112 150 131 150 155V246C150 271 166 289 191 289H209V163L191 145C178 132 181 112 191 112Z" fill="url(#green)"/>
+  <path d="M191 112C211 112 224 121 241 139L390 296C405 312 423 316 441 304C449 299 454 291 454 279V167C454 141 435 120 409 120H390V247L250 98C234 81 207 79 191 92C181 100 181 112 191 112Z" fill="url(#silver)"/>
+  <path d="M454 167C491 173 515 195 515 227V257C515 283 496 304 470 304H454V167Z" fill="url(#green)"/>
+  <path d="M515 211L545 181M515 233L550 205M545 181L555 181M550 205L560 205" stroke="#2BFF75" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="555" cy="181" r="7" fill="#2BFF75"/>
+  <circle cx="560" cy="205" r="7" fill="#2BFF75"/>
+  <text x="52" y="363" fill="url(#nova-gray)" font-family="Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="1">NOVA</text>
+  <text x="347" y="363" fill="url(#green)" font-family="Arial, sans-serif" font-size="68" font-weight="800" letter-spacing="1">TECH</text>
+  <path d="M65 385H115M605 385H655" stroke="#2BFF75" stroke-width="3" opacity="0"/>
+  <text x="118" y="390" fill="#0F172A" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2.5">TECNOLOGÍA QUE SE MUEVE CONTIGO</text>
+  <text x="118" y="390" fill="none" stroke="#2BFF75" stroke-width="0.8" font-family="Arial, sans-serif" font-size="15" font-weight="800" letter-spacing="2.5">TECNOLOGÍA QUE SE MUEVE CONTIGO</text>
+</svg>

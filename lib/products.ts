@@ -2,11 +2,11 @@ import { Product } from "./types";
 
 export const products: Product[] = [
   {
-    id: "airpods-pro-2",
-    name: "AirPods Pro (2ª Gen) ANC",
+    id: "airpods-pro-3",
+    name: "AIRPODS PRO 3",
     category: "AirPods",
     price: 79900,
-    image: "/images/airpods-trio.jpg",
+    image: "/images/Airpodpro3.jpg",
     tagline: "Audio sin límites · Cancelación activa de ruido",
     description:
       "Cancelación activa de ruido 2x superior, modo ambiente adaptativo, estuche de carga MagSafe con altavoz integrado y emparejamiento instantáneo.",
@@ -21,8 +21,8 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "airpods-3-magsafe",
-    name: "AirPods 3ª Generación",
+    id: "airpods-4",
+    name: "AIRPODS 4",
     category: "AirPods",
     price: 79900,
     image: "/images/airpods-case.jpg",
@@ -57,10 +57,10 @@ export const products: Product[] = [
   },
   {
     id: "smartwatch-ultra-titanium",
-    name: "Smartwatch Ultra Titanium 49mm",
+    name: "MOBULA H9 PLUS DE 49MM",
     category: "Smartwatches",
-    price: 79900,
-    image: "/images/smartwatch-ultra.png",
+    price: 99900,
+    image: "/images/H9.jpeg",
     tagline: "Caja de titanio aeroespacial y GPS de doble frecuencia",
     description:
       "Diseño deportivo unisex ultrarresistente con pantalla retina de 2000 nits, medición de ECG, oxigenación en sangre y sumergible a 100m.",
@@ -74,22 +74,23 @@ export const products: Product[] = [
     ],
   },
   {
-    id: "smartwatch-series-9",
-    name: "Smartwatch Series 9 Midnight",
+    id: "corn-watch-m7",
+    name: "CORN WATCH M7",
     category: "Smartwatches",
-    price: 79900,
-    image: "/images/smartwatch-pro.png",
-    tagline: "Pantalla Always-On Retina con control por gestos",
+    price: 139900,
+    image: "/images/cornwatch.jpg",
+    tagline: "Pantalla AMOLED 1.3” Full Color · IP68 · Carga inalámbrica",
     description:
-      "Chasis ligero de aluminio neutro unisex, llamadas bluetooth directas, seguimiento de sueño profundo y notificaciones inteligentes.",
+      "Smartwatch con pantalla AMOLED 1.3 pulgadas full color, resistente al agua IP68, recibe llamadas y notificaciones, y carga inalámbrica rápida para un uso diario moderno y funcional.",
+    badge: "Nuevo",
     specs: [
-      { label: "Pantalla", value: "OLED Curved Always-On" },
-      { label: "Conexión", value: "Bluetooth 5.3 + Llamadas" },
-      { label: "Salud", value: "Monitoreo 24/7 de ritmo y oxígeno" },
-      { label: "Batería", value: "Hasta 18 horas de uso intensivo" },
-      { label: "Compatibilidad", value: "Android / iOS" },
+      { label: "Pantalla", value: "AMOLED 1.3” Full Color" },
+      { label: "Resistencia", value: "IP68 al agua" },
+      { label: "Notificaciones", value: "Llamadas y alertas inteligentes" },
+      { label: "Carga", value: "Inalámbrica rápida" },
+      { label: "Estilo", value: "Diseño premium moderno" },
     ],
-  }
+  },
 ];
 
 export const categories = Array.from(
